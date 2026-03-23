@@ -1,0 +1,3582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Mustafa's Health Guide</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --g1: #1a3a2a;
+      --g2: #234d35;
+      --g3: #2e6b44;
+      --g4: #3a8a55;
+      --g5: #5aac73;
+      --gp: #d4edd9;
+      --gu: #eef7f0;
+      --am: #e8a020;
+      --amp: #fdf3df;
+      --co: #e05a3a;
+      --cop: #fdeee9;
+      --bl: #2e7dd1;
+      --blp: #e8f2fc;
+      --td: #1a2a1e;
+      --tm: #3a5242;
+      --tmu: #6b8a74;
+      --bg: #f5faf6;
+      --wh: #ffffff;
+      --cb: #cce4d2;
+      --rlg: 18px;
+      --rmd: 12px;
+      --rsm: 8px;
+      --sh: 0 2px 16px rgba(30, 80, 50, .10);
+      --shl: 0 6px 32px rgba(30, 80, 50, .15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--td);
+      padding-bottom: 90px;
+      min-height: 100vh;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(150deg, var(--g1) 0%, var(--g3) 55%, var(--g5) 100%);
+      padding: 52px 22px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -70px;
+      left: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gp);
+      opacity: .8;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span {
+      color: #a8e6b8;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .6);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .stat-pill strong {
+      color: #a8e6b8;
+    }
+
+    /* TOP NAV */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--wh);
+      border-bottom: 1px solid var(--cb);
+      box-shadow: 0 2px 12px rgba(30, 80, 50, .07);
+    }
+
+    .nav-tabs {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0 6px;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 13px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tmu);
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-tab.active {
+      color: var(--g4);
+      border-bottom-color: var(--g4);
+    }
+
+    /* SECTIONS */
+    .section {
+      display: none;
+      padding: 18px 15px;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .sec-hd {
+      margin-bottom: 18px;
+    }
+
+    .sec-hd h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--td);
+      margin-bottom: 3px;
+    }
+
+    .sec-hd p {
+      font-size: 13px;
+      color: var(--tmu);
+      line-height: 1.5;
+    }
+
+    /* CHIPS */
+    .chips-wrap {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      margin-bottom: 18px;
+    }
+
+    .chips-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--cb);
+      background: var(--wh);
+      color: var(--tmu);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+
+    .chip.active {
+      background: var(--g4);
+      color: #fff;
+      border-color: var(--g4);
+    }
+
+    /* RECIPE CARD */
+    .recipe-card {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+
+    .rc-head {
+      background: linear-gradient(105deg, var(--g1), var(--g3));
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .rc-head-l {
+      flex: 1;
+    }
+
+    .rc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .rc-meta {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .55);
+    }
+
+    .kcal {
+      background: rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 10px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #a8e6b8;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+
+    .rc-body {
+      padding: 14px 16px;
+    }
+
+    .ing-list {
+      margin-bottom: 12px;
+    }
+
+    .ing {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--gu);
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--td);
+    }
+
+    .ing:last-child {
+      border-bottom: none;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .dg {
+      background: var(--g4);
+    }
+
+    .da {
+      background: var(--am);
+    }
+
+    .db {
+      background: var(--bl);
+    }
+
+    .dc {
+      background: var(--co);
+    }
+
+    .tip-box {
+      background: var(--gu);
+      border-left: 3px solid var(--g4);
+      border-radius: 0 var(--rsm) var(--rsm) 0;
+      padding: 9px 13px;
+      font-size: 12px;
+      color: var(--g2);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .yt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: linear-gradient(100deg, #b71c1c, #e53935);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: var(--rmd);
+      text-decoration: none;
+      width: 100%;
+      transition: opacity .2s;
+    }
+
+    .yt-btn:active {
+      opacity: .82;
+    }
+
+    /* CAT LABEL */
+    .cat-lbl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 22px 0 13px;
+    }
+
+    .cat-lbl-txt {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--g4);
+      white-space: nowrap;
+    }
+
+    .cat-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gp), transparent);
+    }
+
+    /* SNACK SUB CHIPS */
+    .snack-sub-chips {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .sschip {
+      padding: 6px 14px;
+      border-radius: 16px;
+      border: 1.5px solid var(--cb);
+      background: var(--wh);
+      color: var(--tmu);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+    }
+
+    .sschip.active {
+      background: var(--am);
+      color: #fff;
+      border-color: var(--am);
+    }
+
+    /* PLANNER */
+    .day-card {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+
+    .day-head {
+      background: linear-gradient(105deg, var(--g1), var(--g2));
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .day-bdg {
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, .14);
+      color: #a8e6b8;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .day-meals {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .day-meal {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .mt {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 3px 8px;
+      border-radius: 7px;
+      white-space: nowrap;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .mt-b {
+      background: var(--amp);
+      color: #9a6500;
+    }
+
+    .mt-l {
+      background: var(--gu);
+      color: var(--g2);
+    }
+
+    .mt-d {
+      background: var(--cop);
+      color: #8a2010;
+    }
+
+    .mt-s {
+      background: var(--blp);
+      color: var(--bl);
+    }
+
+    .meal-desc {
+      font-size: 13px;
+      color: var(--td);
+      line-height: 1.4;
+    }
+
+    .cheat-card {
+      background: linear-gradient(135deg, #7b1fa2, #e91e63);
+      border-radius: var(--rlg);
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shl);
+    }
+
+    .cheat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .cheat-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7);
+      margin-bottom: 14px;
+    }
+
+    .cheat-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cheat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .cheat-ico {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cheat-item-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .cheat-item-desc {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .7);
+      margin-top: 1px;
+    }
+
+    .cheat-rules {
+      background: rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+
+    .cheat-rules-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .cheat-rule {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .8);
+      padding: 3px 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* GROCERY */
+    .groc-intro {
+      background: linear-gradient(105deg, var(--g1), var(--g3));
+      border-radius: var(--rlg);
+      padding: 16px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .groc-intro h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .groc-intro p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .65);
+      line-height: 1.5;
+    }
+
+    .groc-prog {
+      background: var(--gu);
+      border-radius: var(--rmd);
+      padding: 11px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .prog-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--cb);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      background: var(--g4);
+      border-radius: 3px;
+      transition: width .3s;
+      width: 0%;
+    }
+
+    .prog-lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--g4);
+      white-space: nowrap;
+    }
+
+    .gsec-hd {
+      padding: 12px 14px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--g4);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .gsec-hd span {
+      font-size: 15px;
+    }
+
+    .gitems {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      overflow: hidden;
+      box-shadow: var(--sh);
+      margin-bottom: 6px;
+    }
+
+    .gi {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--gu);
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .gi:last-child {
+      border-bottom: none;
+    }
+
+    .gi.checked {
+      opacity: .42;
+    }
+
+    .gi.checked .gi-name {
+      text-decoration: line-through;
+    }
+
+    .gchk {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--g5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+      background: var(--wh);
+    }
+
+    .gi.checked .gchk {
+      background: var(--g4);
+      border-color: var(--g4);
+    }
+
+    .gchk-ico {
+      display: none;
+    }
+
+    .gi.checked .gchk-ico {
+      display: block;
+    }
+
+    .gi-name {
+      font-size: 13.5px;
+      color: var(--td);
+    }
+
+    .gi-sub {
+      font-size: 11px;
+      color: var(--tmu);
+      margin-top: 1px;
+    }
+
+    /* SCHEDULE */
+    .sched-list {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .sched-list::before {
+      content: '';
+      position: absolute;
+      left: 54px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--g4), var(--gp));
+    }
+
+    .sched-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .sched-time {
+      width: 48px;
+      flex-shrink: 0;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--g4);
+      text-align: right;
+      padding-top: 4px;
+      line-height: 1.3;
+    }
+
+    .sched-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--g4);
+      flex-shrink: 0;
+      margin-top: 5px;
+      z-index: 1;
+      border: 2px solid var(--bg);
+    }
+
+    .sched-dot.hl {
+      background: var(--am);
+      box-shadow: 0 0 0 3px rgba(232, 160, 32, .2);
+    }
+
+    .sched-dot.rd {
+      background: var(--co);
+      box-shadow: 0 0 0 3px rgba(224, 90, 58, .18);
+    }
+
+    .sched-con {
+      flex: 1;
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rmd);
+      padding: 10px 13px;
+      box-shadow: var(--sh);
+    }
+
+    .sched-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--td);
+      margin-bottom: 2px;
+    }
+
+    .sched-desc {
+      font-size: 12px;
+      color: var(--tmu);
+      line-height: 1.45;
+    }
+
+    .stag {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .st-g {
+      background: var(--gu);
+      color: var(--g2);
+    }
+
+    .st-a {
+      background: var(--amp);
+      color: #8a5500;
+    }
+
+    .st-r {
+      background: var(--cop);
+      color: #8a2010;
+    }
+
+    /* EXERCISE */
+    .ex-card {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+
+    .ex-head {
+      background: linear-gradient(105deg, var(--g1), var(--g3));
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ex-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .ex-bdg {
+      font-size: 11px;
+      background: rgba(255, 255, 255, .14);
+      color: #a8e6b8;
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .ex-body {
+      padding: 13px 16px;
+    }
+
+    .ex-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gu);
+      font-size: 13px;
+    }
+
+    .ex-row:last-child {
+      border-bottom: none;
+    }
+
+    .ex-nm {
+      color: var(--td);
+      font-weight: 500;
+    }
+
+    .ex-sets {
+      background: var(--gu);
+      color: var(--g2);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 7px;
+    }
+
+    .ex-note {
+      background: var(--amp);
+      border-left: 3px solid var(--am);
+      border-radius: 0 var(--rsm) var(--rsm) 0;
+      padding: 9px 13px;
+      font-size: 12px;
+      color: #7a5010;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .ex-note-red {
+      background: var(--cop);
+      border-left: 3px solid var(--co);
+      border-radius: 0 var(--rsm) var(--rsm) 0;
+      padding: 9px 13px;
+      font-size: 12px;
+      color: #7a2010;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .yt-btn-g {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: linear-gradient(100deg, var(--g2), var(--g4));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: var(--rmd);
+      text-decoration: none;
+      width: 100%;
+      margin-top: 11px;
+      transition: opacity .2s;
+    }
+
+    .yt-btn-g:active {
+      opacity: .82;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .split-item {
+      background: var(--gu);
+      border-radius: var(--rmd);
+      padding: 10px 12px;
+    }
+
+    .split-day {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--g4);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .split-desc {
+      font-size: 12px;
+      color: var(--g2);
+      line-height: 1.4;
+    }
+
+    /* TIPS */
+    .tip-card {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      margin-bottom: 13px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+
+    .tip-head {
+      padding: 13px 16px 6px;
+      display: flex;
+      gap: 11px;
+      align-items: center;
+    }
+
+    .tip-ico {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+
+    .tig {
+      background: var(--gu);
+    }
+
+    .tia {
+      background: var(--amp);
+    }
+
+    .tib {
+      background: var(--blp);
+    }
+
+    .tic {
+      background: var(--cop);
+    }
+
+    .tip-ttl {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--td);
+    }
+
+    .tip-body {
+      padding: 6px 16px 14px;
+      font-size: 13px;
+      color: var(--tm);
+      line-height: 1.65;
+    }
+
+    .tip-body ul {
+      padding-left: 17px;
+      margin-top: 5px;
+    }
+
+    .tip-body li {
+      margin-bottom: 5px;
+    }
+
+    .tip-body strong {
+      font-weight: 600;
+      color: var(--td);
+    }
+
+    .store-card {
+      background: var(--wh);
+      border: 1px solid var(--cb);
+      border-radius: var(--rlg);
+      margin-bottom: 13px;
+      overflow: hidden;
+      box-shadow: var(--sh);
+    }
+
+    .store-head {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--gu);
+    }
+
+    .store-badge {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+
+    .sb-lulu {
+      background: #e8f4ff;
+      color: #1565c0;
+    }
+
+    .sb-carre {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .sb-nesto {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .store-body {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--tm);
+      line-height: 1.6;
+    }
+
+    .store-body ul {
+      padding-left: 17px;
+    }
+
+    .store-body li {
+      margin-bottom: 5px;
+    }
+
+    .avd-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .avd-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cop);
+      border-radius: var(--rsm);
+      padding: 9px 12px;
+    }
+
+    .avd-ico {
+      font-size: 16px;
+    }
+
+    .avd-txt {
+      font-size: 13px;
+      color: #7a2010;
+      font-weight: 500;
+    }
+
+    /* BOTTOM NAV */
+    .bot-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--wh);
+      border-top: 1px solid var(--cb);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 16px;
+      box-shadow: 0 -4px 20px rgba(30, 80, 50, .08);
+      z-index: 200;
+    }
+
+    .bot-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      padding: 4px 8px;
+      color: var(--tmu);
+      font-size: 9.5px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .bot-btn .ico {
+      font-size: 19px;
+    }
+
+    .bot-btn.active {
+      color: var(--g4);
+    }
+
+    /* YT SVG ICON */
+    .yt-ico {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Personal Health Guide v2</div>
+    <h1>Mustafa's<br><span>Journey to 68kg</span></h1>
+    <p class="hero-sub">Recipes · Planner · Grocery · Schedule · Exercise · Tips 🌿</p>
+    <div class="hero-stats">
+      <div class="stat-pill">Now: <strong>82–85 kg</strong></div>
+      <div class="stat-pill">Goal: <strong>65–68 kg</strong></div>
+      <div class="stat-pill">By: <strong>July 2025</strong></div>
+      <div class="stat-pill">~<strong>1,700 kcal/day</strong></div>
+    </div>
+  </div>
+
+  <!-- TOP NAV -->
+  <div class="nav-wrap">
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="showSec('recipes',this)">🥗 Recipes</div>
+      <div class="nav-tab" onclick="showSec('planner',this)">📅 Planner</div>
+      <div class="nav-tab" onclick="showSec('grocery',this)">🛒 Grocery</div>
+      <div class="nav-tab" onclick="showSec('schedule',this)">⏰ Schedule</div>
+      <div class="nav-tab" onclick="showSec('exercise',this)">💪 Exercise</div>
+      <div class="nav-tab" onclick="showSec('tips',this)">💡 Tips</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  RECIPES                              -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="recipes" class="section active">
+    <div class="sec-hd">
+      <h2>Recipes</h2>
+      <p>Prep at night, carry in the morning. Every recipe is designed for your life.</p>
+    </div>
+
+    <!-- Main category chips -->
+    <div class="chips-wrap" id="mainChips">
+      <div class="chip active" onclick="filterRecipes('breakfast',this)">🌅 Breakfast</div>
+      <div class="chip" onclick="filterRecipes('lunch',this)">☀️ Lunch</div>
+      <div class="chip" onclick="filterRecipes('dinner',this)">🌙 Dinner</div>
+      <div class="chip" onclick="filterRecipes('salads',this)">🥬 Salads</div>
+      <div class="chip" onclick="filterRecipes('snacks',this)">🍎 Snacks</div>
+    </div>
+
+    <!-- ── BREAKFAST ── -->
+    <div class="recipe-group" id="rg-breakfast">
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Boiled Eggs + Dates</div>
+            <div class="rc-meta">5 mins · No cooking · Carry-friendly</div>
+          </div>
+          <div class="kcal">~280 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>2 boiled eggs — boil 6 on Sunday, lasts all week in fridge
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>4–5 Medjool dates or 1 banana
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>2 big glasses of water immediately after Fajr
+            </div>
+          </div>
+          <div class="tip-box">💡 Sunday night: boil 6 eggs at once. Zero morning effort all week.</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=how+to+boil+eggs+meal+prep+week"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Overnight Oats</div>
+            <div class="rc-meta">Prep night before · Grab & go · Zero cooking</div>
+          </div>
+          <div class="kcal">~350 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>½ cup rolled oats
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>1 cup low-fat milk or water
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>1 banana sliced + 1 tsp honey
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>Mix in jar, refrigerate overnight. Done.
+            </div>
+          </div>
+          <div class="tip-box">💡 Make 3 jars Sunday night. Breakfast sorted Mon–Wed instantly.</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=overnight+oats+healthy+easy+meal+prep"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Egg Wrap / Roti Roll</div>
+            <div class="rc-meta">5 mins cook · Portable · Filling</div>
+          </div>
+          <div class="kcal">~320 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>2 eggs — scramble with salt, black pepper, cumin
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>1 whole wheat roti or brown bread wrap
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Sliced cucumber or tomato inside
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>No sauce — a squeeze of lemon is enough
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=healthy+egg+wrap+roti+roll+breakfast"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Banana Peanut Butter Toast</div>
+            <div class="rc-meta">3 mins · No cooking · Energy boost</div>
+          </div>
+          <div class="kcal">~310 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot da"></div>2 slices whole wheat bread — toasted
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>1 tsp peanut butter spread on each slice
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>½ banana sliced on top
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Optional: pinch of cinnamon or drizzle of honey
+            </div>
+          </div>
+          <div class="tip-box">💡 Check peanut butter label — pick one where ingredients are just "peanuts". No added
+            sugar.</div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=banana+peanut+butter+toast+healthy+breakfast"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Yogurt Parfait</div>
+            <div class="rc-meta">5 mins · No cooking · Refreshing</div>
+          </div>
+          <div class="kcal">~280 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot db"></div>½ cup plain low-fat yogurt
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>2 tbsp rolled oats layered on top
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Banana slices or any fruit + 1 tsp honey
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>Layer in a jar — yogurt, oats, fruit, repeat
+            </div>
+          </div>
+          <div class="tip-box">💡 Prep in a jar the night before. Lid on, in fridge. Grab it exactly like overnight
+            oats.</div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=yogurt+parfait+healthy+breakfast+meal+prep"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Masala Omelette</div>
+            <div class="rc-meta">5 mins · Desi flavour · High protein</div>
+          </div>
+          <div class="kcal">~300 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>3 eggs — whisk with salt, cumin, red chili
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Finely diced onion, tomato, green chili
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Cook in ½ tsp oil on medium heat
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Serve with 1 roti or 1 brown bread slice
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=masala+omelette+healthy+desi+breakfast"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LUNCH ── -->
+    <div class="recipe-group" id="rg-lunch" style="display:none">
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Grilled Chicken Rice Bowl</div>
+            <div class="rc-meta">Bulk prep Sunday · Lunchbox hero</div>
+          </div>
+          <div class="kcal">~480 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>100g chicken breast — season: cumin, paprika, garlic, salt, lemon
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Grill or pan-fry, 1 tsp oil only
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>½ cup cooked rice
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Big handful salad — cucumber, tomato, lemon squeeze
+            </div>
+          </div>
+          <div class="tip-box">💡 Grill 5 breasts Sunday. Portion Mon–Fri. Saves 30 mins every weeknight.</div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=grilled+chicken+rice+bowl+healthy+meal+prep"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Red Lentil Daal + Roti</div>
+            <div class="rc-meta">Budget-friendly · High protein · Desi comfort</div>
+          </div>
+          <div class="kcal">~420 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>1 cup red lentils — boil with turmeric and salt
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Tarka: 1 tsp oil, cumin seeds, onion, tomato, garlic, red chili
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Mix tarka into daal
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>2 whole wheat rotis or 1 small pita on side
+            </div>
+          </div>
+          <div class="tip-box">💡 Big pot Sunday. Stays fresh 4 days in fridge. Reheat in 2 mins.</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=healthy+red+lentil+daal+low+oil+recipe"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chickpea Salad Bowl</div>
+            <div class="rc-meta">Zero cooking · 5 mins · Full lunch</div>
+          </div>
+          <div class="kcal">~390 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>1 can drained chickpeas
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Diced cucumber, tomato, red onion, parsley
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Dressing: 1 tsp olive oil + lemon + cumin + salt + paprika
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Optional: sliced boiled egg on top
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=chickpea+salad+easy+healthy+no+cook"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chicken Whole Wheat Wrap</div>
+            <div class="rc-meta">Portable · Filling · Office-friendly</div>
+          </div>
+          <div class="kcal">~440 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>100g grilled chicken strips (from Sunday batch)
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>1 whole wheat wrap or large roti
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Lettuce, tomato, cucumber, capsicum inside
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Sauce: 1 tsp yogurt + garlic powder + lemon — mix and spread
+            </div>
+          </div>
+          <div class="tip-box">💡 Wrap tight in foil or cling wrap the night before. Stays fresh till lunch easily.
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=healthy+chicken+wrap+whole+wheat+lunch"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Healthy Egg Fried Rice</div>
+            <div class="rc-meta">Uses leftover rice · 10 mins · Tasty</div>
+          </div>
+          <div class="kcal">~400 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>1 cup leftover cooked rice (cold rice works best)
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>2 eggs — scrambled in with the rice
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>1 tsp soy sauce + garlic + peas/carrot/corn
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>1 tsp oil only on high heat — stir fast
+            </div>
+          </div>
+          <div class="tip-box">💡 Make the night before, pack in lunchbox. Actually tastes better cold or room temp.
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=healthy+egg+fried+rice+low+oil+recipe"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chicken Pasta</div>
+            <div class="rc-meta">Whole wheat · No cream · Satisfying</div>
+          </div>
+          <div class="kcal">~460 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>80g whole wheat pasta — boil until al dente
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>80g grilled chicken strips
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Simple tomato sauce: canned tomato + garlic + oregano + salt (no cream)
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Mix everything, pack in lunchbox
+            </div>
+          </div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=healthy+chicken+pasta+no+cream+whole+wheat"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DINNER ── -->
+    <div class="recipe-group" id="rg-dinner" style="display:none">
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chicken Stir Fry</div>
+            <div class="rc-meta">20 mins · Cook for everyone · Low oil</div>
+          </div>
+          <div class="kcal">~400 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>500g chicken breast — thin strips, season with garlic, soy sauce, black pepper,
+              paprika
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>1 tsp oil — stir fry on high heat
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Capsicum, onion, carrot — add and cook 5 mins
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Serve with small rice + big salad
+            </div>
+          </div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=healthy+chicken+stir+fry+vegetables+low+oil"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Yogurt Baked Chicken</div>
+            <div class="rc-meta">35 mins oven · Zero effort · Family favourite</div>
+          </div>
+          <div class="kcal">~380 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>Chicken legs or thighs
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Marinate: yogurt + garlic + cumin + coriander + salt + lemon + turmeric
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Rest 30 mins minimum (or overnight in fridge)
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Bake 200°C for 35–40 mins. No oil needed.
+            </div>
+          </div>
+          <div class="tip-box">💡 Marinate the night before. Next evening just put it in oven — zero energy required.
+          </div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=baked+chicken+yogurt+marinade+healthy+oven"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Grilled Chicken + Roasted Veg</div>
+            <div class="rc-meta">40 mins oven · Colourful · Light</div>
+          </div>
+          <div class="kcal">~370 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>150g chicken breast — grill on pan with minimal oil
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Capsicum, carrot, onion, zucchini — toss with 1 tsp olive oil + salt + paprika
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Roast veggies at 200°C for 25 mins alongside chicken
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Squeeze lemon over everything before serving
+            </div>
+          </div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=grilled+chicken+roasted+vegetables+healthy+dinner"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Light Daal + Brown Rice</div>
+            <div class="rc-meta">Simple · Filling · Very low oil</div>
+          </div>
+          <div class="kcal">~380 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>1 cup yellow or red lentils — boil soft
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Minimal tarka: ½ tsp oil, cumin, garlic, a pinch of chili
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>½ cup brown rice or regular rice (smaller portion)
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Serve with cucumber raita on the side
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=light+daal+brown+rice+healthy+dinner"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chicken Vegetable Soup</div>
+            <div class="rc-meta">Very low cal · Super filling · Comforting</div>
+          </div>
+          <div class="kcal">~300 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>150g chicken breast — cut small cubes
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Carrot, celery, onion, peas — dice small
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Simmer everything in 3 cups water + salt + black pepper + cumin for 25 mins
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Add a squeeze of lemon and fresh coriander before serving
+            </div>
+          </div>
+          <div class="tip-box">💡 Make a big pot — stays fresh 3 days. Best dinner when you're exhausted from commute.
+          </div>
+          <a class="yt-btn"
+            href="https://www.youtube.com/results?search_query=healthy+chicken+vegetable+soup+low+calorie"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Masala Omelette + Salad</div>
+            <div class="rc-meta">Best light dinner · 8 mins · No effort</div>
+          </div>
+          <div class="kcal">~280 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>3 eggs — masala style with onion, tomato, green chili, cumin
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Cook in ½ tsp oil
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Big side salad: cucumber + tomato + onion + lemon
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>1 roti or 1 brown bread slice on side
+            </div>
+          </div>
+          <div class="tip-box">💡 On nights you get home at 8 PM exhausted — this is your go-to. 8 mins total.</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=masala+omelette+healthy+dinner+quick"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SALADS ── -->
+    <div class="recipe-group" id="rg-salads" style="display:none">
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Fattoush-Style Salad</div>
+            <div class="rc-meta">5 mins · Goes with anything · Zesty</div>
+          </div>
+          <div class="kcal">~120 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>Chopped cucumber, tomato, red onion, lettuce, parsley
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Dressing: lemon juice + ½ tsp olive oil + salt + sumac or paprika
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Optional: small handful toasted pita chips on top
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=fattoush+salad+easy+healthy+recipe"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Chickpea Power Salad</div>
+            <div class="rc-meta">Full meal alone · High protein · No cooking</div>
+          </div>
+          <div class="kcal">~280 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>1 can chickpeas + diced cucumber, tomato, onion
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Fresh parsley or coriander
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Dressing: 1 tsp olive oil + lemon + cumin + salt + chili flakes
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Top with sliced boiled egg for extra protein
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=chickpea+power+salad+protein+recipe"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Grilled Chicken Salad Bowl</div>
+            <div class="rc-meta">Full carry lunch · Bulk prep friendly</div>
+          </div>
+          <div class="kcal">~350 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>100g grilled chicken strips (from Sunday batch)
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Base: lettuce + cucumber + tomato + corn + red cabbage
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Dressing: 1 tsp olive oil + lemon + black pepper + garlic powder
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Keep dressing separate in small container, add just before eating
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=grilled+chicken+salad+bowl+meal+prep"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Cucumber Raita</div>
+            <div class="rc-meta">3 mins · Replaces oily chutney at dinner</div>
+          </div>
+          <div class="kcal">~80 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot db"></div>½ cup plain low-fat yogurt
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>Grated or diced cucumber + fresh mint or coriander
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Cumin + salt — mix and refrigerate
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=cucumber+raita+recipe+simple+healthy"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Healthy Coleslaw</div>
+            <div class="rc-meta">No mayo · Yogurt base · Crunchy</div>
+          </div>
+          <div class="kcal">~110 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dg"></div>2 cups shredded white cabbage + 1 grated carrot
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>Dressing: 3 tbsp plain yogurt + 1 tsp lemon + salt + black pepper + pinch of
+              sugar
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Mix well and refrigerate for 30 mins before eating
+            </div>
+            <div class="ing">
+              <div class="dot dc"></div>Goes perfectly with grilled chicken
+            </div>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=healthy+coleslaw+no+mayo+yogurt+recipe"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+      <div class="recipe-card">
+        <div class="rc-head">
+          <div class="rc-head-l">
+            <div class="rc-name">Desi Tomato Onion Salad</div>
+            <div class="rc-meta">2 mins · Classic desi side · Zero effort</div>
+          </div>
+          <div class="kcal">~60 kcal</div>
+        </div>
+        <div class="rc-body">
+          <div class="ing-list">
+            <div class="ing">
+              <div class="dot dc"></div>2 tomatoes — diced
+            </div>
+            <div class="ing">
+              <div class="dot da"></div>1 red onion — thinly sliced
+            </div>
+            <div class="ing">
+              <div class="dot dg"></div>Squeeze of lemon + chaat masala or salt + chopped coriander
+            </div>
+            <div class="ing">
+              <div class="dot db"></div>Mix and serve immediately — best fresh
+            </div>
+          </div>
+          <div class="tip-box">💡 Your secret weapon at dinner — fill half your plate with this before eating anything
+            else.</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=desi+tomato+onion+salad+chaat+masala"
+            target="_blank"><svg class="yt-ico" width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+            </svg>Search on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SNACKS ── -->
+    <div class="recipe-group" id="rg-snacks" style="display:none">
+      <div class="snack-sub-chips">
+        <div class="sschip active" onclick="filterSnacks('meal',this)">🥗 Meal Snacks</div>
+        <div class="sschip" onclick="filterSnacks('shop',this)">🏪 Shop Snacks</div>
+        <div class="sschip" onclick="filterSnacks('fruit',this)">🍉 Fruits</div>
+      </div>
+
+      <!-- Meal snacks -->
+      <div id="ss-meal">
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Weekly Nut Pack</div>
+              <div class="rc-meta">Prep 7 bags Sunday · Always in your bag</div>
+            </div>
+            <div class="kcal">~160 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>10 almonds + 5 walnuts + 2–3 cashews per bag
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Pack into 7 zip-lock bags every Sunday night
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>One bag per day — throw it in your bag. Done.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Banana + Peanut Butter</div>
+              <div class="rc-meta">Natural energy · Pre-workout perfect</div>
+            </div>
+            <div class="kcal">~180 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>1 banana
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>1 tsp natural peanut butter (no added sugar brand)
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>Dip or spread — eat together
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Yogurt + Honey</div>
+              <div class="rc-meta">High protein · Digestive · Light</div>
+            </div>
+            <div class="kcal">~120 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot db"></div>½ cup plain low-fat yogurt
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>1 tsp honey drizzled on top
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Pack in a small container with lid — carry to office easily
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Dates — Always in Bag</div>
+              <div class="rc-meta">Instant energy · Kills cravings · Natural</div>
+            </div>
+            <div class="kcal">~100 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>4–5 Medjool dates in a zip-lock bag
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Keep permanently in your bag — never remove
+              </div>
+              <div class="ing">
+                <div class="dot dc"></div>When you crave chips or chocolate — eat 2 dates first, wait 10 mins
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Boiled Egg + Cucumber</div>
+              <div class="rc-meta">Pure protein snack · Very filling</div>
+            </div>
+            <div class="kcal">~110 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>1 boiled egg (from your Sunday batch)
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>½ cucumber sliced — pack together in small container
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Sprinkle salt + chili powder on egg if you like
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Apple + Cinnamon</div>
+              <div class="rc-meta">High fibre · Kills hunger for 2 hrs</div>
+            </div>
+            <div class="kcal">~90 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dc"></div>1 apple — slice at night, pack in container
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Sprinkle pinch of cinnamon on top
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>Optional: squeeze tiny bit of lemon to stop browning
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shop snacks -->
+      <div id="ss-shop" style="display:none">
+        <div class="tip-box" style="margin-bottom:14px">🏪 These are all available at Lulu, Carrefour, Nesto, or any
+          bakala. Buy and keep a stock at home or office.</div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Sunbites Wholegrain Crisps</div>
+              <div class="rc-meta">Available everywhere · Much better than chips</div>
+            </div>
+            <div class="kcal">~130 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>Small pack of Sunbites Wholegrain — baked not fried
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Available at Lulu, Carrefour, most bakala shops
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>One pack only — don't double up
+              </div>
+            </div>
+            <div class="tip-box">💡 When you absolutely need something crunchy — this is the approved swap for regular
+              chips.</div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Nature Valley / Nakd Bar</div>
+              <div class="rc-meta">Oat-based · No frying · Portable</div>
+            </div>
+            <div class="kcal">~180 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>Nature Valley Crunchy Bar (oat & honey) — at Carrefour, Lulu
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Or Nakd bar — fruit and nut based, no baking
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>Keep 2–3 in your bag for emergency hunger
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Roasted Chickpeas Pack</div>
+              <div class="rc-meta">High protein · Crunchy · Filling</div>
+            </div>
+            <div class="kcal">~120 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>Harvest Snaps or any roasted chickpea pack
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Available at Carrefour and Lulu health sections
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>Crunchy, high protein, low calorie — perfect desk snack at office
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">McVitie's Digestive Biscuits</div>
+              <div class="rc-meta">2–3 only · Available at every bakala</div>
+            </div>
+            <div class="kcal">~140 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>Original McVitie's Digestive — not the chocolate ones
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>2–3 biscuits maximum — pair with tea (no sugar)
+              </div>
+              <div class="ing">
+                <div class="dot dc"></div>Available at literally every bakala in UAE
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Mixed Nuts Pack (Planters)</div>
+              <div class="rc-meta">Roasted unsalted · Any supermarket</div>
+            </div>
+            <div class="kcal">~150 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>Planters or any roasted unsalted mixed nuts — small pack
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Available at Lulu, Carrefour, Nesto
+              </div>
+              <div class="ing">
+                <div class="dot db"></div>Backup for when you forgot your home-prepped nut pack
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Labneh + Pita</div>
+              <div class="rc-meta">From any bakala deli · Protein-rich</div>
+            </div>
+            <div class="kcal">~160 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot db"></div>Small portion labneh from deli section (many bakala shops have it)
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>1 small pita bread — tear and dip
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Drizzle of olive oil + za'atar if available
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fruits -->
+      <div id="ss-fruit" style="display:none">
+        <div class="tip-box" style="margin-bottom:14px">🍉 All available fresh year-round in UAE. Buy weekly from Nesto
+          or Lulu for best prices.</div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Apple</div>
+              <div class="rc-meta">Kills hunger for 2 hrs · High fibre</div>
+            </div>
+            <div class="kcal">~80 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>Any variety — Red, Green, Fuji. Eat with skin on for max fibre.
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Best mid-morning snack on the metro between classes
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Banana</div>
+              <div class="rc-meta">Best pre-workout fruit · Natural energy</div>
+            </div>
+            <div class="kcal">~90 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot da"></div>Eat before your morning workout for instant energy
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Or as breakfast add-on — extremely filling for the calories
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Watermelon</div>
+              <div class="rc-meta">90% water · Perfect in Dubai heat</div>
+            </div>
+            <div class="kcal">~45 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot db"></div>A thick slice — extremely low calorie and very filling
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Perfect summer snack — also counts toward your water intake
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Orange</div>
+              <div class="rc-meta">High vitamin C · Immunity boost</div>
+            </div>
+            <div class="kcal">~60 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dc"></div>1 medium orange — peel and pack in container
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>Great for long commute days — refreshing and hydrating
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Guava</div>
+              <div class="rc-meta">Extremely high fibre · Very cheap in UAE</div>
+            </div>
+            <div class="kcal">~55 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot dg"></div>Most underrated fruit for fat loss — extremely high fibre
+              </div>
+              <div class="ing">
+                <div class="dot da"></div>Very cheap at Nesto and Lulu. Slice and pack in container.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-card">
+          <div class="rc-head">
+            <div class="rc-head-l">
+              <div class="rc-name">Pear</div>
+              <div class="rc-meta">Slow digesting · Keeps you full longest</div>
+            </div>
+            <div class="kcal">~75 kcal</div>
+          </div>
+          <div class="rc-body">
+            <div class="ing-list">
+              <div class="ing">
+                <div class="dot db"></div>Eat with skin on — most of the fibre is in the skin
+              </div>
+              <div class="ing">
+                <div class="dot dg"></div>One of the best fruits for staying full between meals
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  PLANNER                              -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="planner" class="section">
+    <div class="sec-hd">
+      <h2>Weekly Meal Plan</h2>
+      <p>6 clean days + 1 guilt-free cheat day. Sunday is yours.</p>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Monday</div>
+        <div class="day-bdg">~1,650 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Overnight Oats + banana + honey</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Nut pack + 1 apple</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Grilled Chicken Rice Bowl + fattoush salad</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">4–5 dates</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Chicken Stir Fry + small rice + desi tomato onion salad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Tuesday</div>
+        <div class="day-bdg">~1,620 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Boiled Eggs + dates + water</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Apple + cinnamon</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Red Lentil Daal + 1 roti + fattoush</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Yogurt + honey</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Yogurt Baked Chicken + cucumber raita + salad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Wednesday</div>
+        <div class="day-bdg">~1,700 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Masala Omelette + 1 roti</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Banana + peanut butter</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Chickpea Salad Bowl + boiled egg</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Nut pack</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Chicken Vegetable Soup + 1 roti</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Thursday</div>
+        <div class="day-bdg">~1,680 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Yogurt Parfait (jar from Sunday prep)</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Boiled egg + cucumber</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Chicken Whole Wheat Wrap + coleslaw</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Guava or orange</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Grilled Chicken + Roasted Veg + desi salad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Friday</div>
+        <div class="day-bdg">~1,600 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Banana Peanut Butter Toast + tea (no sugar)</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Dates + watermelon slice</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Healthy Egg Fried Rice + chickpea salad</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Sunbites pack or nut pack</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Light Daal + rice + cucumber raita</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Saturday</div>
+        <div class="day-bdg">~1,720 kcal</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Breakfast</span>
+          <div class="meal-desc">Egg Wrap + 1 glass water + fruit</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Yogurt + honey + pear</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Lunch</span>
+          <div class="meal-desc">Chicken Pasta + grilled chicken salad bowl</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-s">Snack</span>
+          <div class="meal-desc">Apple + roasted chickpea pack</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Dinner</span>
+          <div class="meal-desc">Masala Omelette + big salad + raita</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHEAT DAY -->
+    <div class="cheat-card">
+      <div class="cheat-title">🍕 Sunday — Cheat Day</div>
+      <div class="cheat-sub">You earned it. Enjoy guilt-free. Back to normal Monday.</div>
+      <div class="cheat-items">
+        <div class="cheat-item">
+          <div class="cheat-ico">🍛</div>
+          <div>
+            <div class="cheat-item-name">Biryani</div>
+            <div class="cheat-item-desc">Full plate, enjoy every bite. You cooked clean all week.</div>
+          </div>
+        </div>
+        <div class="cheat-item">
+          <div class="cheat-ico">🍕</div>
+          <div>
+            <div class="cheat-item-name">Pizza</div>
+            <div class="cheat-item-desc">2 slices — thin crust if possible. Enjoy with family.</div>
+          </div>
+        </div>
+        <div class="cheat-item">
+          <div class="cheat-ico">🍔</div>
+          <div>
+            <div class="cheat-item-name">Burger</div>
+            <div class="cheat-item-desc">One good burger. Skip the fries or share them.</div>
+          </div>
+        </div>
+        <div class="cheat-item">
+          <div class="cheat-ico">🥙</div>
+          <div>
+            <div class="cheat-item-name">Shawarma Plate</div>
+            <div class="cheat-item-desc">With garlic sauce, the works. No restrictions today.</div>
+          </div>
+        </div>
+        <div class="cheat-item">
+          <div class="cheat-ico">🍲</div>
+          <div>
+            <div class="cheat-item-name">Nihari / Halwa Puri</div>
+            <div class="cheat-item-desc">Whatever your heart wants — this is your desi comfort day.</div>
+          </div>
+        </div>
+        <div class="cheat-item">
+          <div class="cheat-ico">🍦</div>
+          <div>
+            <div class="cheat-item-name">Dessert</div>
+            <div class="cheat-item-desc">Ice cream, kheer, gulab jamun — one serving, savour it.</div>
+          </div>
+        </div>
+      </div>
+      <div class="cheat-rules">
+        <div class="cheat-rules-title">3 Rules Even on Cheat Day</div>
+        <div class="cheat-rule">💧 Still drink 3L water</div>
+        <div class="cheat-rule">🌅 Don't skip breakfast</div>
+        <div class="cheat-rule">🔒 Stop eating by 10 PM</div>
+      </div>
+    </div>
+
+    <!-- Sunday prep reminder -->
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-name">Sunday — Also Prep Day 🔧</div>
+        <div class="day-bdg">30 mins</div>
+      </div>
+      <div class="day-meals">
+        <div class="day-meal"><span class="mt mt-b">Morning</span>
+          <div class="meal-desc">Boil 6 eggs · Make 3 overnight oat jars · Pack 7 nut bags</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-l">Afternoon</span>
+          <div class="meal-desc">Grill 5 chicken breasts · Cook big pot of daal · Wash and cut all vegetables</div>
+        </div>
+        <div class="day-meal"><span class="mt mt-d">Evening</span>
+          <div class="meal-desc">Enjoy your cheat meal 🍕 You've prepped for a whole week in 30 mins.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  GROCERY                              -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="grocery" class="section">
+    <div class="groc-intro">
+      <h3>🛒 Grocery Checklist</h3>
+      <p>Tick off what you have. Buy what's missing. ~150–200 AED for 2 weeks.</p>
+    </div>
+    <div class="groc-prog">
+      <div class="prog-wrap">
+        <div class="prog-fill" id="progBar"></div>
+      </div>
+      <div class="prog-lbl" id="progLbl">0 / 0</div>
+    </div>
+
+    <div class="gsec-hd"><span>🍗</span> Protein</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Chicken breast / legs</div>
+          <div class="gi-sub">500g–1kg</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Eggs</div>
+          <div class="gi-sub">1 dozen (12 eggs)</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Red lentils (masoor daal)</div>
+          <div class="gi-sub">500g bag</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Canned chickpeas</div>
+          <div class="gi-sub">2–3 cans</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Plain low-fat yogurt</div>
+          <div class="gi-sub">Large tub — Carrefour brand best value</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Low-fat milk</div>
+          <div class="gi-sub">1 litre</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Natural peanut butter</div>
+          <div class="gi-sub">Ingredients: peanuts only. No sugar added.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gsec-hd"><span>🌾</span> Carbs & Grains</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Rolled oats</div>
+          <div class="gi-sub">500g — Lulu brand is cheapest</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Rice</div>
+          <div class="gi-sub">Likely already home</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Whole wheat bread</div>
+          <div class="gi-sub">First ingredient must say "whole wheat flour"</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Whole wheat pasta</div>
+          <div class="gi-sub">Carrefour or Lulu brand</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Pita bread / small wraps</div>
+          <div class="gi-sub">1 pack</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gsec-hd"><span>🥦</span> Vegetables</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Cucumbers</div>
+          <div class="gi-sub">Buy every week — used in everything</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Tomatoes</div>
+          <div class="gi-sub">Buy every week</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Onions (red + white)</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Lettuce or iceberg</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Capsicum (bell pepper)</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Carrots</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">White cabbage</div>
+          <div class="gi-sub">For coleslaw</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Fresh garlic</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Fresh coriander + parsley</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Canned tomatoes</div>
+          <div class="gi-sub">For pasta sauce</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gsec-hd"><span>🍌</span> Fruits & Snacks</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Bananas</div>
+          <div class="gi-sub">1 bunch</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Apples</div>
+          <div class="gi-sub">4–5 per week</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Guava</div>
+          <div class="gi-sub">Cheapest at Nesto — buy 3–4</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Oranges or pears</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Medjool dates</div>
+          <div class="gi-sub">Always keep at home</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Raw almonds</div>
+          <div class="gi-sub">250g — Lulu bulk section cheapest</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Walnuts + cashews</div>
+          <div class="gi-sub">Small packs</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Sunbites Wholegrain Crisps</div>
+          <div class="gi-sub">2–3 packs for emergency shop snack</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Nature Valley bars</div>
+          <div class="gi-sub">Small box — Carrefour</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gsec-hd"><span>🧂</span> Spices & Condiments</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Cumin (zeera)</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Paprika + red chili powder</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Turmeric + coriander powder</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Black pepper + salt</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Chaat masala</div>
+          <div class="gi-sub">For desi tomato onion salad</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Olive oil (small bottle)</div>
+          <div class="gi-sub">Carrefour brand fine</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Lemons</div>
+          <div class="gi-sub">Buy every week</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Honey (small jar)</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Soy sauce</div>
+          <div class="gi-sub">For stir fry and fried rice</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Cinnamon powder</div>
+          <div class="gi-sub">For oats and apple snack</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Oregano</div>
+          <div class="gi-sub">For pasta sauce</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gsec-hd"><span>📦</span> Containers & Gear</div>
+    <div class="gitems">
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Airtight lunch boxes</div>
+          <div class="gi-sub">2–3 boxes — Lulu or Nesto</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Small zip-lock bags</div>
+          <div class="gi-sub">For weekly nut packs</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">1.5L water bottle</div>
+          <div class="gi-sub">Always with you everywhere</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Small sauce container</div>
+          <div class="gi-sub">For carrying salad dressing separately</div>
+        </div>
+      </div>
+      <div class="gi" onclick="toggleGI(this)">
+        <div class="gchk"><svg class="gchk-ico" width="11" height="11" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <div>
+          <div class="gi-name">Meal prep glass jars</div>
+          <div class="gi-sub">For overnight oats and yogurt parfait</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  SCHEDULE                             -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="schedule" class="section">
+    <div class="sec-hd">
+      <h2>Daily Schedule</h2>
+      <p>Built around your Sharjah–Dubai commute. Realistic, not perfect.</p>
+    </div>
+    <div class="sched-list">
+      <div class="sched-item">
+        <div class="sched-time">5:00 AM</div>
+        <div class="sched-dot hl"></div>
+        <div class="sched-con">
+          <div class="sched-title">Fajr Prayer</div>
+          <div class="sched-desc">Wake up. Immediately drink 2 big glasses of water before anything else.</div><span
+            class="stag st-g">Non-negotiable start</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">5:15 AM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">30-Min Workout</div>
+          <div class="sched-desc">Home circuit + chest or hip focus depending on the day. See Exercise tab.</div><span
+            class="stag st-a">Skip only if sick</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">5:50 AM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Shower + Grab Prep</div>
+          <div class="sched-desc">Grab your pre-packed lunchbox and snack bag from fridge. Fill water bottle.</div><span
+            class="stag st-g">Prep was done last night</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">6:15 AM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Breakfast</div>
+          <div class="sched-desc">Eat before leaving — boiled eggs + dates, or grab your overnight oats jar.</div><span
+            class="stag st-g">~280–350 kcal</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">6:30 AM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Leave for Dubai</div>
+          <div class="sched-desc">Commute 1–1.5 hrs. Podcast or Quran. No junk at petrol stations — nut pack is in your
+            bag.</div><span class="stag st-a">Nut pack in bag</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">~9:00 AM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Mid-Morning Snack</div>
+          <div class="sched-desc">Nut pack or 1 fruit between lectures. Keep sipping your water bottle.</div><span
+            class="stag st-g">~150–160 kcal</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">~1:00 PM</div>
+        <div class="sched-dot hl"></div>
+        <div class="sched-con">
+          <div class="sched-title">Lunch Break</div>
+          <div class="sched-desc">Eat your packed lunchbox. Sit down, eat slowly — 20 mins minimum. Refill water bottle.
+          </div><span class="stag st-g">~420–480 kcal</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">~4:00 PM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Afternoon Snack at Office</div>
+          <div class="sched-desc">Yogurt cup or dates. Prevents overeating at dinner.</div><span
+            class="stag st-g">~100–120 kcal</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">7:30 PM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Home + Short Rest</div>
+          <div class="sched-desc">Rest 20–30 mins. Don't go straight to food — let your appetite settle first.</div>
+          <span class="stag st-a">No screen binge eating</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">8:00 PM</div>
+        <div class="sched-dot hl"></div>
+        <div class="sched-con">
+          <div class="sched-title">Dinner</div>
+          <div class="sched-desc">Controlled portions. Half rice, double salad, raita on side. Eat slowly.</div><span
+            class="stag st-g">~500–600 kcal</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">9:00 PM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Night Prep (15 mins)</div>
+          <div class="sched-desc">Pack tomorrow's lunchbox. Prep snack bag. Set water bottle at door. Your secret
+            weapon.</div><span class="stag st-a">Every single night</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">9:30 PM</div>
+        <div class="sched-dot rd"></div>
+        <div class="sched-con">
+          <div class="sched-title">Kitchen Closed 🔒</div>
+          <div class="sched-desc">No food after this. Water only. This rule alone loses you 3–4 kg in 2 months.</div>
+          <span class="stag st-r">Hard rule — no exceptions</span>
+        </div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-time">10:30 PM</div>
+        <div class="sched-dot"></div>
+        <div class="sched-con">
+          <div class="sched-title">Sleep</div>
+          <div class="sched-desc">7 hours minimum. Poor sleep increases hunger hormones — makes you eat more next day.
+          </div><span class="stag st-g">Sleep = fat loss</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  EXERCISE                             -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="exercise" class="section">
+    <div class="sec-hd">
+      <h2>Exercise Routine</h2>
+      <p>No gym. 30–45 mins at home. Right after Fajr. Updated with chest and hip focus.</p>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-head">
+        <div class="ex-name">Daily Warm-Up Circuit</div>
+        <div class="ex-bdg">10 mins · Every day</div>
+      </div>
+      <div class="ex-body">
+        <div class="ex-row"><span class="ex-nm">Jumping Jacks</span><span class="ex-sets">3 × 30 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Mountain Climbers</span><span class="ex-sets">3 × 20 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Burpees</span><span class="ex-sets">3 × 8 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Plank Hold</span><span class="ex-sets">3 × 30–45 sec</span></div>
+        <div class="ex-note">⚡ Always start with this warm-up before moving to the day's focus workout.</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-head">
+        <div class="ex-name">Chest Focus</div>
+        <div class="ex-bdg">Mon / Wed / Fri</div>
+      </div>
+      <div class="ex-body">
+        <div class="ex-note-red" style="margin-bottom:12px;margin-top:0">🎯 These target your pectoral muscle underneath
+          the chest fat. As fat drops + muscle builds, chest flattens fast.</div>
+        <div class="ex-row"><span class="ex-nm">Standard Push-ups</span><span class="ex-sets">3 × 15 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Wide-Grip Push-ups</span><span class="ex-sets">3 × 12 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Incline Push-ups <span style="font-size:11px;color:var(--tmu)">(hands on
+              chair)</span></span><span class="ex-sets">3 × 12 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Decline Push-ups <span style="font-size:11px;color:var(--tmu)">(feet on
+              chair)</span></span><span class="ex-sets">3 × 10 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Chest Squeeze <span style="font-size:11px;color:var(--tmu)">(press palms
+              together, hold 10s)</span></span><span class="ex-sets">3 × 10 reps</span></div>
+        <div class="ex-note">💡 Start with whatever reps you can manage. Add 2–3 reps every week. Posture improvement is
+          immediate — shoulders back, chest up = looks 30% better instantly.</div>
+        <a class="yt-btn-g"
+          href="https://www.youtube.com/results?search_query=push+up+variations+chest+workout+no+equipment+beginner"
+          target="_blank"><svg class="yt-ico" width="15" height="15" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+          </svg>Watch Chest Workout on YouTube</a>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-head">
+        <div class="ex-name">Glutes Focus</div>
+        <div class="ex-bdg">Tue / Thu / Sat</div>
+      </div>
+      <div class="ex-body">
+        <div class="ex-note-red" style="margin-bottom:12px;margin-top:0">🎯 Hip fat is the last to go for most guys —
+          but these exercises reshape and firm the area as overall weight drops. Very effective combined with calorie
+          deficit.</div>
+        <div class="ex-row"><span class="ex-nm">Deep Squats</span><span class="ex-sets">3 × 20 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Glute Bridges <span style="font-size:11px;color:var(--tmu)">(lie back,
+              push hips up, squeeze)</span></span><span class="ex-sets">3 × 20 reps</span></div>
+        <div class="ex-row"><span class="ex-nm">Donkey Kicks <span style="font-size:11px;color:var(--tmu)">(on all
+              fours, kick leg back)</span></span><span class="ex-sets">3 × 15 each leg</span></div>
+        <div class="ex-row"><span class="ex-nm">Side Leg Raises <span style="font-size:11px;color:var(--tmu)">(lying on
+              side, raise top leg)</span></span><span class="ex-sets">3 × 15 each side</span></div>
+        <div class="ex-row"><span class="ex-nm">Walking Lunges</span><span class="ex-sets">3 × 10 each leg</span></div>
+        <div class="ex-note">💡 Squeeze your glutes hard at the top of every bridge and donkey kick — the squeeze is
+          where the work happens. You'll feel it immediately.</div>
+        <a class="yt-btn-g"
+          href="https://www.youtube.com/results?search_query=glute+hip+workout+no+equipment+home+beginner"
+          target="_blank"><svg class="yt-ico" width="15" height="15" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+          </svg>Watch Hip Workout on YouTube</a>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-head">
+        <div class="ex-name">Weekly Split</div>
+        <div class="ex-bdg">Your schedule</div>
+      </div>
+      <div class="ex-body">
+        <div class="split-grid">
+          <div class="split-item">
+            <div class="split-day">Mon · Wed · Fri</div>
+            <div class="split-desc">Warm-up + Chest Focus</div>
+          </div>
+          <div class="split-item">
+            <div class="split-day">Tue · Thu · Sat</div>
+            <div class="split-desc">Warm-up + Hips & Glutes</div>
+          </div>
+          <div class="split-item">
+            <div class="split-day">Sunday</div>
+            <div class="split-desc">Rest or light walk — it's cheat day 😄</div>
+          </div>
+          <div class="split-item">
+            <div class="split-day">Every Day</div>
+            <div class="split-desc">8,000–10,000 steps + metro stairs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-head">
+        <div class="ex-name">Weekend Cardio</div>
+        <div class="ex-bdg">Friday or Saturday</div>
+      </div>
+      <div class="ex-body">
+        <div class="ex-row"><span class="ex-nm">Outdoor walk or light jog</span><span class="ex-sets">40–60 mins</span>
+        </div>
+        <div class="ex-row"><span class="ex-nm">Sharjah Corniche</span><span class="ex-sets">5 mins from home</span>
+        </div>
+        <div class="ex-row"><span class="ex-nm">Al Mamzar Beach Park</span><span class="ex-sets">Great Dubai
+            route</span></div>
+        <div class="ex-note">🌅 Early morning 7–8 AM before it gets hot. No phone, just walk. This is your weekly mental
+          reset too.</div>
+        <a class="yt-btn-g" href="https://www.youtube.com/results?search_query=beginner+running+walking+plan+fat+loss"
+          target="_blank"><svg class="yt-ico" width="15" height="15" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M23 7s-.3-2-1.2-2.8C20.7 3 19.4 3 18.8 2.9 16.2 2.8 12 2.8 12 2.8s-4.2 0-6.8.1C4.6 3 3.3 3 2.2 4.2 1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.5.3 4.5s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.5 22.2 12 22.2 12 22.2s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8S23.3 15.7 23.3 13.6v-2.1C23.3 9.3 23 7 23 7zM9.7 15.5V8l6.6 3.8-6.6 3.7z" />
+          </svg>Beginner Running Plan on YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--  TIPS                                 -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="tips" class="section">
+    <div class="sec-hd">
+      <h2>Life Tips</h2>
+      <p>Small habits that make your busy life significantly easier.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tig">🌙</div>
+        <div class="tip-ttl">The Night Before Rule</div>
+      </div>
+      <div class="tip-body">Your mornings are rushed. Do everything at night. This removes 90% of bad food decisions.
+        <ul>
+          <li>Pack your lunchbox (10 mins)</li>
+          <li>Prepare your snack zip-lock bag</li>
+          <li>Fill water bottle and leave it at the door</li>
+          <li>Put your workout clothes out (no morning excuse)</li>
+          <li>Set alarm 5 mins earlier than you think you need</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tia">💧</div>
+        <div class="tip-ttl">The Water Trick</div>
+      </div>
+      <div class="tip-body">Dehydration feels exactly like hunger. You're probably dehydrated most of the day. Drink
+        3–3.5 litres daily.
+        <ul>
+          <li>2 glasses immediately after Fajr — before anything</li>
+          <li>Keep 1.5L bottle with you always on commute</li>
+          <li>Drink 1 glass before every meal — reduces how much you eat</li>
+          <li>When you want a snack, drink water first. Wait 10 mins.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tib">📱</div>
+        <div class="tip-ttl">Apps That Help</div>
+      </div>
+      <div class="tip-body">
+        <ul>
+          <li><strong>Apple Health</strong> — already on iPhone, counts steps automatically</li>
+          <li><strong>MyFitnessPal</strong> — scan food barcodes to count calories effortlessly</li>
+          <li><strong>Reminders app</strong> — set 9:00 PM reminder "Kitchen Closed 🔒"</li>
+          <li><strong>Alarm</strong> — label it "Fajr + Water + Workout"</li>
+          <li>Weigh every Monday morning, same time. Log in Notes app.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tic">🚇</div>
+        <div class="tip-ttl">Use Your Commute Smartly</div>
+      </div>
+      <div class="tip-body">3 hours commuting daily is not wasted — it's your best quiet time.
+        <ul>
+          <li>Metro: health/fitness podcasts — transforms your mindset over weeks</li>
+          <li>Walk fast everywhere — every step counts toward 10K goal</li>
+          <li>Never stop at petrol station snacks or vending machines</li>
+          <li>Nut pack + dates always in bag — emergency food sorted</li>
+          <li>Use commute to mentally plan next day's meals</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tig">🧠</div>
+        <div class="tip-ttl">Mindset — Most Important</div>
+      </div>
+      <div class="tip-body">You're 20, studying, working, commuting 3 hrs daily. You're doing more than most your age.
+        Be proud.
+        <ul>
+          <li>You don't need to be perfect. Just <strong>80% consistent.</strong></li>
+          <li>One bad meal doesn't ruin your week — next meal is what counts</li>
+          <li>Weigh weekly not daily — daily fluctuations are just water weight</li>
+          <li>Take measurements every 3 weeks — inches drop even when scale is slow</li>
+          <li>Tell your uncle and aunt what you're doing — their support helps massively</li>
+          <li>Start today. Not Monday. <strong>Today.</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tia">🍽️</div>
+        <div class="tip-ttl">Eating Out in Dubai</div>
+      </div>
+      <div class="tip-body">Sometimes you'll eat outside. Order smart without guilt.
+        <ul>
+          <li><strong>Subway:</strong> Wheat bread, chicken/tuna, all veggies, mustard only — no mayo</li>
+          <li><strong>Shawarma:</strong> Chicken only, no garlic sauce, no fries, add salad</li>
+          <li><strong>Any restaurant:</strong> Grilled chicken, salad, water not juice, no fries</li>
+          <li><strong>Supermarket grab:</strong> Greek yogurt + fruit + your boiled egg from bag</li>
+          <li>Always ask: "Can I get the sauce on the side?" — then use very little</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- NEW: GROCERY SHOPPING TIPS -->
+    <div class="cat-lbl"><span class="cat-lbl-txt">🏪 Smart Shopping — UAE Supermarkets</span>
+      <div class="cat-line"></div>
+    </div>
+
+    <div class="store-card">
+      <div class="store-head"><span class="store-badge sb-lulu">🔵 Lulu Hypermarket</span></div>
+      <div class="store-body">
+        <ul>
+          <li><strong>Best for:</strong> oats, lentils, chickpeas in bulk — cheapest prices in UAE</li>
+          <li>Lulu brand rolled oats — excellent quality, very affordable</li>
+          <li>Bulk nuts section — buy almonds and walnuts loose, much cheaper than packs</li>
+          <li>Fresh chicken section — buy and marinate same day</li>
+          <li>Lulu brand low-fat yogurt — great value, check it has less than 5g sugar per 100g</li>
+          <li>Avoid: the snacks and biscuits aisle completely</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="store-card">
+      <div class="store-head"><span class="store-badge sb-carre">🟠 Carrefour</span></div>
+      <div class="store-body">
+        <ul>
+          <li><strong>Best for:</strong> whole wheat bread, whole wheat pasta, imported items</li>
+          <li>Carrefour brand plain yogurt — one of the best value in UAE</li>
+          <li>Good variety of fresh vegetables at reasonable prices</li>
+          <li>Carrefour brand canned chickpeas — cheapest option</li>
+          <li>Olive oil — Carrefour brand is affordable and good quality</li>
+          <li>Nature Valley bars are available here — grab a box for emergency snacks</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="store-card">
+      <div class="store-head"><span class="store-badge sb-nesto">🟢 Nesto</span></div>
+      <div class="store-body">
+        <ul>
+          <li><strong>Best for:</strong> cheapest fresh produce in the area — your go-to for vegetables</li>
+          <li>Best prices on guava, bananas, apples — buy your weekly fruit stock here</li>
+          <li>Bulk spices section — cumin, paprika, turmeric very cheap</li>
+          <li>Cheapest eggs and lentils of all three stores</li>
+          <li>Dates section — good quality Medjool at reasonable price</li>
+          <li>Airtight containers and zip-lock bags available too</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tib">🏷️</div>
+        <div class="tip-ttl">How to Read Food Labels</div>
+      </div>
+      <div class="tip-body">
+        <ul>
+          <li>Always check <strong>per 100g calories</strong> — not "per serving" (serving sizes are tricks)</li>
+          <li>For yogurt: pick one with <strong>less than 5g sugar per 100g</strong></li>
+          <li>For bread: first ingredient must be <strong>"whole wheat flour"</strong> not just "wheat flour"</li>
+          <li><strong>"Low fat"</strong> often means high sugar — always check both numbers</li>
+          <li>Ingredients listed by weight — if sugar is in top 3, put it back</li>
+          <li>Avoid anything with <strong>"partially hydrogenated"</strong> in ingredients — that's trans fat</li>
+          <li>For peanut butter: ingredients list should say peanuts only — nothing else</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-ico tic">🚫</div>
+        <div class="tip-ttl">Aisles to Avoid Entirely</div>
+      </div>
+      <div class="tip-body">
+        <div class="avd-grid">
+          <div class="avd-item">
+            <div class="avd-ico">🍟</div>
+            <div class="avd-txt">Chips & crisps aisle</div>
+          </div>
+          <div class="avd-item">
+            <div class="avd-ico">🍪</div>
+            <div class="avd-txt">Biscuits & cookies aisle</div>
+          </div>
+          <div class="avd-item">
+            <div class="avd-ico">🥣</div>
+            <div class="avd-txt">Sugary cereals (look healthy, aren't)</div>
+          </div>
+          <div class="avd-item">
+            <div class="avd-ico">🧃</div>
+            <div class="avd-txt">Bottled juices (pure liquid sugar)</div>
+          </div>
+          <div class="avd-item">
+            <div class="avd-ico">🍦</div>
+            <div class="avd-txt">Flavoured yogurts (loaded with sugar)</div>
+          </div>
+          <div class="avd-item">
+            <div class="avd-ico">🥤</div>
+            <div class="avd-txt">Fizzy drinks aisle</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-weight:600;color:var(--co);">Golden Rule: Never shop hungry. Eat something
+          first. Hungry Mustafa will buy chips. Full Mustafa sticks to the list. 😄</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bot-nav">
+    <div class="bot-btn active" id="bn-recipes" onclick="showSec('recipes',null,this)"><span
+        class="ico">🥗</span>Recipes</div>
+    <div class="bot-btn" id="bn-planner" onclick="showSec('planner',null,this)"><span class="ico">📅</span>Planner</div>
+    <div class="bot-btn" id="bn-grocery" onclick="showSec('grocery',null,this)"><span class="ico">🛒</span>Grocery</div>
+    <div class="bot-btn" id="bn-schedule" onclick="showSec('schedule',null,this)"><span class="ico">⏰</span>Schedule
+    </div>
+    <div class="bot-btn" id="bn-exercise" onclick="showSec('exercise',null,this)"><span class="ico">💪</span>Exercise
+    </div>
+    <div class="bot-btn" id="bn-tips" onclick="showSec('tips',null,this)"><span class="ico">💡</span>Tips</div>
+  </div>
+
+  <script>
+    var allSecs = ['recipes', 'planner', 'grocery', 'schedule', 'exercise', 'tips'];
+
+    function showSec(id, navTabEl, botBtnEl) {
+      allSecs.forEach(function (s) {
+        document.getElementById(s).style.display = 'none';
+      });
+      document.getElementById(id).style.display = 'block';
+
+      document.querySelectorAll('.nav-tab').forEach(function (t) { t.classList.remove('active'); });
+      var tabs = document.querySelectorAll('.nav-tab');
+      var idx = allSecs.indexOf(id);
+      if (tabs[idx]) tabs[idx].classList.add('active');
+
+      document.querySelectorAll('.bot-btn').forEach(function (b) { b.classList.remove('active'); });
+      var botBtn = document.getElementById('bn-' + id);
+      if (botBtn) botBtn.classList.add('active');
+
+      window.scrollTo(0, 0);
+    }
+
+    function filterRecipes(cat, chipEl) {
+      document.querySelectorAll('#mainChips .chip').forEach(function (c) { c.classList.remove('active'); });
+      chipEl.classList.add('active');
+      var groups = ['breakfast', 'lunch', 'dinner', 'salads', 'snacks'];
+      groups.forEach(function (g) {
+        var el = document.getElementById('rg-' + g);
+        if (el) el.style.display = (g === cat) ? 'block' : 'none';
+      });
+    }
+
+    function filterSnacks(cat, chipEl) {
+      document.querySelectorAll('.sschip').forEach(function (c) { c.classList.remove('active'); });
+      chipEl.classList.add('active');
+      ['meal', 'shop', 'fruit'].forEach(function (s) {
+        var el = document.getElementById('ss-' + s);
+        if (el) el.style.display = (s === cat) ? 'block' : 'none';
+      });
+    }
+
+    function toggleGI(el) {
+      el.classList.toggle('checked');
+      updateProg();
+    }
+
+    function updateProg() {
+      var all = document.querySelectorAll('.gi');
+      var done = document.querySelectorAll('.gi.checked');
+      var pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+      document.getElementById('progBar').style.width = pct + '%';
+      document.getElementById('progLbl').textContent = done.length + ' / ' + all.length;
+    }
+
+    // init
+    document.getElementById('recipes').style.display = 'block';
+    allSecs.slice(1).forEach(function (s) {
+      document.getElementById(s).style.display = 'none';
+    });
+    updateProg();
+  </script>
+</body>
+
+</html>
